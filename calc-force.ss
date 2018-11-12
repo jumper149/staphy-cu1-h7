@@ -5,9 +5,9 @@
 (import (nmaths))
 (import (plot))
 
-(random-seed 1)
+(random-seed 3)
 
-(define pi 3.141592653589793)
+(define pi invpi)
 
 (define randomwalk
   ; gives a list with the 'N' angles of the joints
@@ -51,31 +51,43 @@
 		   (rec (- step 1)))))))) 							; recursion step
 
 (define make-force-list
+  ; returns a list with forces calculated from 'make-probability-histogram'
   (lambda (count-steps grid-steps l N tau)
     (let* ([hist (make-probability-histogram count-steps grid-steps l N)]
-	   [ls (vector->list (vector-map (lambda (x)
+	   [ls (vector->list (vector-map (lambda (x) 					; prepare list from vector, do some easy calculations
 					   (* tau (log (/ 1 x))))
 					 hist))]
 	   [grid-length (/ (* N l) grid-steps)])
-      (let list-derivate ([ls ls])
+      (let list-derivate ([ls ls]) 							; recursive function that creates a new list with the difference quotient of the previous list
 	(if (null? (cdr ls))
 	    '()
-	    (cons (/ (- (cadr ls) (car ls)) grid-length) (list-derivate (cdr ls))))))))
+	    (cons (/ (- (cadr ls) (car ls)) grid-length) (list-derivate (cdr ls)))))))) ; recursion step
 
 (define make-force-table
+  ; adds the related 'L' value to the force-list and then returns it in form of a table
   (lambda (count-steps grid-steps l N tau)
     (let ([grid-length (/ (* N l) grid-steps)])
       (let rec ([ls (make-force-list count-steps grid-steps l N tau)]
 		[x (real->flonum (/ grid-length 2))])
 	(if (null? ls)
 	    '()
-	    (cons (list x (car ls)) (rec (cdr ls) (+ x grid-length))))))))
+	    (cons (list x (car ls)) (rec (cdr ls) (+ x grid-length)))))))) ; recursion step
 
 (let ([l 1]
       [tau 1]
-      [count-steps 1000000]
-      [grid-steps 30])
+      [count-steps (expt 10 6)]
+      [grid-steps 25])
 
-  (list-file "table-3-L-force" (make-force-table count-steps grid-steps l 3 tau))
-  (list-file "table-5-L-force" (make-force-table count-steps grid-steps l 5 tau))
-  (list-file "table-8-L-force" (make-force-table count-steps grid-steps l 8 tau)))
+  (define to-file
+    (lambda (N)
+      (display "N = ")
+      (display N)
+      (newline)
+      (list-file (format "table-~s-L-force" N) (make-force-table count-steps grid-steps l N tau))))
+
+  (to-file 3)
+  (to-file 5)
+  (to-file 8)
+  
+  ; putting the data tables into files so they can be plotted
+  )
