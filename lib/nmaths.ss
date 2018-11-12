@@ -91,17 +91,4 @@
 			 (+ (f (+ (random vol) a)) (sum f (- n 1)))))])
 	(* presign (/ vol n) (sum f n))))))
 
-(define gradient
-  (lambda (f x)
-    (let ([fn (lambda (n)
-		(lambda (var)
-		  (let ([xn x])
-		    (vector-set! xn n var)
-		    (f xn))))])
-      (let* ([n (vector-length x)]
-	     [i n])
-	(if (= i 0)
-	    (make-vector n)
-	    (+ 1))))))
-
 )
