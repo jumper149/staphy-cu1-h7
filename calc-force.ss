@@ -71,10 +71,11 @@
 	    '()
 	    (cons (list x (car ls)) (rec (cdr ls) (+ x grid-length))))))))
 
-(let ([N 7]
-      [l 1]
-      [tau 1])
-  ; max 1000000 50 ?
-  (display (make-force-table 100000 50 l N tau))
+(let ([l 1]
+      [tau 1]
+      [count-steps 1000000]
+      [grid-steps 30])
 
-  (list-file "table-L-force" (make-force-table 100000 50 l N tau)))
+  (list-file "table-3-L-force" (make-force-table count-steps grid-steps l 3 tau))
+  (list-file "table-5-L-force" (make-force-table count-steps grid-steps l 5 tau))
+  (list-file "table-8-L-force" (make-force-table count-steps grid-steps l 8 tau)))
