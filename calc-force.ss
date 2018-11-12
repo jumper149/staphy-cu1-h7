@@ -83,7 +83,7 @@
       (display "N = ")
       (display N)
       (newline)
-      (list-file (format "table-~s-L-force" N) (make-force-table count-steps grid-steps l N tau))))
+      (list-file (format "out/table-~s-L-force" N) (make-force-table count-steps grid-steps l N tau))))
 
   (to-file 3)
   (to-file 5)
