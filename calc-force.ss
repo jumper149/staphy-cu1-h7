@@ -78,7 +78,7 @@
 
 (let ([l 1]
       [tau 1]
-      [count-steps (expt 10 6)]
+      [count-steps (expt 10 7)]
       [grid-steps 25])
 
   (define to-file

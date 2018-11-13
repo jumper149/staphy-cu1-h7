@@ -35,25 +35,27 @@ I am calculating the probability density $P$ in form of a histogram and then try
 \subsection{Theoretical background}
 First I use the relation (\ref{eq:F1}) of force $F$ and pressure $p$, in which I then insert the free Energy $E$, which leads to the partition function $Z$.
 \begin{align}
-	F &= \int p \text{ d}A \label{eq:F1} \\
-	&= \int \underbrace{- \left( \frac{\partial E}{\partial V} \right)_{\tau}}_{= p} \text{d}A \notag \\
-	&= \int - \partial_V \underbrace{(- \tau \ln(Z))}_{= E} \text{ d}A \notag \\
-	&= \tau \int \partial_V \ln(Z) \text{ d}A \notag \\
-	F &= \tau \text{ } \partial_L \ln(Z) \label{eq:F2}
+	F &= \int - p \text{ d}A \label{eq:F1} \\
+	&= - \int \underbrace{- \left( \frac{\partial E}{\partial V} \right)_{\tau}}_{= p} \text{d}A \notag \\
+	&= \int \partial_V \underbrace{(- \tau \ln(Z))}_{= E} \text{ d}A \notag \\
+	&= - \tau \int \partial_V \ln(Z) \text{ d}A \notag \\
+	F &= - \tau \text{ } \partial_L \ln(Z) \label{eq:F2}
 \end{align}
 
 Now with equation (\ref{eq:F2}) I only need to be able to calculate the partition function $Z$.
 In this case there is a relation (\ref{eq:P1}) to the probability density $P$.
 \begin{align}
-	P (N_\nu, \epsilon_\nu) &= \frac{1}{Z} \underbrace{\exp \left( {\frac{\mu N_\nu - \epsilon_\nu}{\tau}} \right)}_{\eqqcolon \alpha} \label{eq:P1} \\
+	P &= \frac{1}{Z} \underbrace{\exp \left( {\frac{\mu N_\nu - \epsilon_\nu}{\tau}} \right)}_{\eqqcolon \alpha} \label{eq:P1} \\
 	\implies \text{ } Z &= \frac{\alpha}{P} \label{eq:Z1}
 \end{align}
 
+The reason for $\partial_L \alpha = 0$ is, that due to the thermal equilibrium the energy $\epsilon_\nu$ stays constant for different $L$. $N_\nu$ is also constant for each probability density $P$, and $\mu$ and $\tau$ are definetely constant here.
+
 Now I can use equation (\ref{eq:Z1}) to further simplify equation (\ref{eq:F2}).
 \begin{align}
-	F &= \tau \partial_L \ln \left( \frac{\alpha}{P} \right) \notag \\
-	&= \tau ( \underbrace{\partial_L \ln(\alpha)}_{= 0} - \partial_L \ln(P) ) \notag \\
-	F &= - \tau \text{ } \partial_L \ln(P) \label{eq:F3}
+	F &= - \tau \partial_L \ln \left( \frac{\alpha}{P} \right) \notag \\
+	&= - \tau ( \underbrace{\partial_L \ln(\alpha)}_{= 0} - \partial_L \ln(P) ) \notag \\
+	F &= \tau \text{ } \partial_L \ln(P) \label{eq:F3}
 \end{align}
 
 With equation (\ref{eq:F3}) I can directly compute the force $F$ from the probability density $P(L)$ which I am simulating with a distribution of ''randomwalks''.
@@ -61,7 +63,7 @@ With equation (\ref{eq:F3}) I can directly compute the force $F$ from the probab
 \section{Result}
 The end result of the computation can be found in Figure \ref{fig:1}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.65]{../out/plot-L-force.png}
 	\caption{Plot of the calculated force $F$ in relation to the distance $L$}
