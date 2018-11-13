@@ -25,6 +25,9 @@
 
 \maketitle
 
+If you have trouble understanding the program I would be happy to explain it.
+Contact me via \texttt{stud.IP} or e-Mail (\texttt{felixspringer149@gmail.com}).
+
 \section{Thermodynamics of a chain [H7]}
 In my solution I am using the approach that is shown in the hints.
 I am calculating the probability density $P$ in form of a histogram and then try to derive the force $F$ directly from there.
@@ -54,5 +57,20 @@ Now I can use equation (\ref{eq:Z1}) to further simplify equation (\ref{eq:F2}).
 \end{align}
 
 With equation (\ref{eq:F3}) I can directly compute the force $F$ from the probability density $P(L)$ which I am simulating with a distribution of ''randomwalks''.
+
+\section{Result}
+The end result of the computation can be found in Figure \ref{fig:1}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.65]{../out/plot-L-force.png}
+	\caption{Plot of the calculated force $F$ in relation to the distance $L$}
+	\label{fig:1}
+\end{figure}
+
+To look into the details of the computation check out \texttt{calc-force.ss}. It is executed with ''Chez-Scheme 9.5.1''.
+The plot is created with ''gnuplot'' in \texttt{plot-L-force.gp}.
+
+To completely executed everything there is \texttt{main.sh}.
 
 \end{document}

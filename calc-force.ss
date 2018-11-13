@@ -5,7 +5,7 @@
 (import (nmaths))
 (import (plot))
 
-(random-seed 3)
+(random-seed 1)
 
 (define pi invpi)
 
@@ -74,7 +74,7 @@
 		[x (real->flonum (/ grid-length 2))])
 	(if (null? ls)
 	    '()
-	    (cons (list x (car ls)) (rec (cdr ls) (+ x grid-length)))))))) ; recursion step
+	    (cons (list x (car ls)) (rec (cdr ls) (+ x grid-length)))))))) 		; recursion step
 
 (let ([l 1]
       [tau 1]

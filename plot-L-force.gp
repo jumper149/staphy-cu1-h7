@@ -1,7 +1,7 @@
 #!/bin/gnuplot -p
 
-set term postscript eps enhanced color
-set output "out/plot-L-force.eps"
+set term pngcairo
+set output "out/plot-L-force.png"
 set xlabel "L"
 set ylabel "Force"
 set xrange [0:8]
