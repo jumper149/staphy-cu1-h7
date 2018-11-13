@@ -28,7 +28,7 @@
 	      [y 0]
 	      [angles angles]) 									; pass list 'angles'
       (if (null? angles)
-	  (sqrt (+ (* x x) (* x x))) 								; return distance
+	  (sqrt (+ (* x x) (* y y))) 								; return distance
 	  (rec (+ x (* (cos (car angles)) l)) (+ y (* (sin (car angles)) l)) (cdr angles)))))) 	; recursion step, call with new starting coordinates
 
 (define make-probability-histogram
@@ -44,18 +44,21 @@
 			  (/ x count-steps))
 			counts)
 	    (begin (let ([ref (exact (floor (/ (distance l (randomwalk N)) grid-length)))]) 	; calculate index
-		     (when (< ref (vector-length counts))
 		       (vector-set! counts 							; add 1 to vector-entry
 				    ref
-				    (+ (vector-ref counts ref) 1))))
+				    (+ (vector-ref counts ref) 1)))
 		   (rec (- step 1)))))))) 							; recursion step
 
 (define make-force-list
   ; returns a list with forces calculated from 'make-probability-histogram'
   (lambda (count-steps grid-steps l N tau)
     (let* ([hist (make-probability-histogram count-steps grid-steps l N)]
+	   [log (lambda (x) 								; redefine log (workaround to avoid '(log 0)'
+		  (if (= x 0)
+		      (log (/ 1 count-steps))
+		      (log x)))]
 	   [ls (vector->list (vector-map (lambda (x) 					; prepare list from vector, do some easy calculations
-					   (* tau (log (/ 1 x))))
+					   (* tau (log x)))
 					 hist))]
 	   [grid-length (/ (* N l) grid-steps)])
       (let list-derivate ([ls ls]) 							; recursive function that creates a new list with the difference quotient of the previous list
