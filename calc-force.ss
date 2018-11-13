@@ -78,8 +78,8 @@
 
 (let ([l 1]
       [tau 1]
-      [count-steps (expt 10 7)]
-      [grid-steps 25])
+      [count-steps (expt 10 6)]
+      [grid-steps 50])
 
   (define to-file
     (lambda (N)
